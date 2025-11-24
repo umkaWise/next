@@ -30,3 +30,7 @@ export type CharactersResponse = {
   results: Character[];
 };
 
+export type SearchFormProps = {
+  suggestionOptions: string[]
+}
+

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { fetchCharacters } from "../lib/fetchCharacters";
+import SearchForm from "@/components/search-form/search-form";
 
-const Home = async () => {
+export default async function Home() {
   const charactersResponse = await fetchCharacters();
   const characterData = charactersResponse.results;
+  const characterNames = characterData.map((character) => character.name)
 
   if (!characterData.length) {
     return (
@@ -16,6 +18,7 @@ const Home = async () => {
   return (
     <main className="font-sans min-h-screen bg-neutral-950 p-8 text-white sm:p-12">
       <h1 className="text-center text-3xl font-semibold text-lime-300">Rick & Morty Characters</h1>
+      <SearchForm suggestionOptions={characterNames} />
       <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {characterData.map((character) => (
           <li
@@ -33,5 +36,3 @@ const Home = async () => {
     </main>
   );
 };
-
-export default Home;
